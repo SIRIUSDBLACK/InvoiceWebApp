@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice</title>
+  </head>
+  <body>
+    <main id="app" class="h-screen flex flex-col">
+
+      <!-- header -->
+      <header class="mb-3">
+        <div class="container p-4 mx-auto">
+          <div class="">
+            <h1 class="font-san text-2xl font-extrabold">MMS Solutions</h1>
+            <p class="text-lg text-stone-500">Invoice App</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- body -->
+      <section>
+
+        <!-- form -->
+        <div class="container print:hidden block mx-auto mb-5">
+          <form id="productRecordForm">
+            <div class="grid grid-cols-4 shadow-lg bg-gray-100 p-3 rounded-sm gap-3">
+              <div class="col-span-2">
+                <select id="productSelect" name="product_select" class="bg-gray-50 text-gray-900 px-5 py-2.5 text-sm font-medium border-2 border-stone-900 rounded-sm focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                  <option value="" selected>Select Product</option>
+                </select>
+              </div>
+              <div class="col-span-1">
+                <input name="quantity" type="text"  class="bg-gray-50 w-full text-end text-gray-900  rounded-sm border-2 border-stone-900 focus:ring-stone-500 focus:border-stone-500 block px-5 py-2.5 text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Quantity" required />
+              </div>
+              <div class="col-span-1">
+                <button id="addRecordBtn" type="submit" class="w-full text-center bg-stone-700 px-5 py-2.5 text-sm font-medium text-gray-50 focus:outline-none rounded-sm border-2 border-gray-900 hover:bg-gray-100 hover:text-stone-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add Record</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+        <!-- table -->
+        <div class="container mx-auto">
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-sm text-gray-300 bg-stone-900 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Product name
+                        </th>
+                        <th scope="col" class="px-6 text-end py-3">
+                            Price
+                        </th>
+                        <th scope="col" class="px-6 text-end py-3">
+                            Quantity
+                        </th>
+                        <th scope="col" class="px-6 text-end py-3">
+                            cost
+                        </th>
+                        <th scope="col" class="px-6 print:hidden table-cell text-end py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="recordGroup">
+                    <tr class="last:table-row hidden border-b dark:border-gray-700">
+                      <th colspan="5" scope="row" class="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                          There is no Product yet
+                      </th>
+                    </tr>
+                </tbody>
+                <tfoot>
+                  <tr class="border-b dark:border-gray-700">
+                    <th colspan="3" scope="row" class="px-6 text-end py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        Total
+                    </th>
+                    <td id="recordTotal" class="px-6 text-end py-4">
+                        0
+                    </td>
+                </tr>
+                <tr class="border-b dark:border-gray-700">
+                  <th colspan="3" scope="row" class="px-6 text-end py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Tax
+                  </th>
+                  <td id="tax" class="px-6 text-end py-4">
+                      0
+                  </td>
+              </tr>
+              <tr class="border-b dark:border-gray-700">
+                  <th colspan="3" scope="row" class="px-6 text-end py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Net Total
+                  </th>
+                  <td id="recordNetTotal" class="px-6 text-end py-4">
+                      0
+                  </td>             
+              </tr>
+                </tfoot>
+            </table>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SideBar -->
+      <section id="productSideBar" class="fixed z-40 w-[450px] h-screen bg-stone-100 right-0">
+
+        <div class="p-4">
+          <div class="mb-6 flex items-center justify-between">
+            <div>
+              <h1 class="font-san text-2xl font-extrabold">Manage Inventory</h1>
+            <p class="text-lg text-stone-500">Available Items</p>
+            </div>
+            <button id="sideBarCloseBtn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+          </div>
+
+          <div id="itemsGroup" class="flex flex-col mb-6 gap-3">
+            
+          </div>
+
+          <div class="">
+            <div class="grid grid-rows-2 shadow-lg bg-gray-300 p-3 rounded-sm gap-4 grid-cols-3">
+              <div class="col-span-3">
+                <input id="newItemNameInput" type="text"  class="bg-gray-50 w-full text-gray-900  rounded-sm border-2 border-stone-900 focus:ring-stone-500 focus:border-stone-500 block px-5 py-2.5 text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="New Item Name" required />
+              </div>
+              <div class="col-span-2">
+                <input id="newItemPriceInput" type="text"  class="bg-gray-50 w-full text-gray-900  rounded-sm border-2 border-stone-900 focus:ring-stone-500 focus:border-stone-500 block px-5 py-2.5 text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Price" required />
+              </div>
+              <div class="col-span-1">
+                <button type="button" id="newItemAddBtn" class="text-center bg-stone-700 px-7 py-2.5 text-sm font-medium text-gray-50 focus:outline-none rounded-sm border-2 border-gray-900 hover:bg-gray-200 hover:text-stone-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add New</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Appreciate sentence -->
+      <section class="container mt-5 mx-auto">
+        <h2 class="hidden print:block">"Thank you for your purchase! We appreciate your business and hope to see you again soon."</h2>
+      </section>
+
+      <!-- footer -->
+      <footer class= "mt-auto">
+        <div class="container block print:hidden mx-auto">
+          <div class="flex justify-end gap-4 py-4">
+            <button id="manageInventoryBtn" type="button" class="text-end px-6 py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm  border-2 border-gray-900 hover:bg-gray-100 hover:text-stone-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Manage Inventory</button>
+            <button type="button" class="text-center bg-stone-700 px-4 py-2.5 text-sm font-medium text-gray-50 focus:outline-none rounded-sm border-2 border-gray-900 hover:bg-gray-200 hover:text-stone-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" id="checkoutBtn" >Checkout</button>
+          </div>        
+        </div>
+      </footer>
+      
+      <!-- newItemTemplate -->
+      <template id="newItemTemplate">
+        <button type="button" class="newItem w-full px-5 flex justify-between py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm  border-2 border-gray-900 hover:bg-gray-100 hover:text-stone-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+          <h1 class="newItemName">Apple</h1>
+          <p class="newItemPrice" class="text-gray-400">500 mmk</p>
+        </button>
+      </template>
+      
+      <!-- recordRowTemplate -->
+      <template id="recordRowTemplate">
+        <tr class="record-row odd:bg-white odd:dark:bg-gray-900 group even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+          <th scope="row" class="record-product-name px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              Apple
+          </th>
+          <td class="record-product-price px-6 text-end py-4">
+              500
+          </td>
+          <td class=" px-6 text-end py-4 flex items-center justify-end gap-3">
+            <button class="addMoreBtn hidden duration-200 group-hover:inline-block "><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 pointer-events-none active:bg-black active:text-slate-50 rounded-full">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            </button>
+              <span class="record-quantity">3</span>
+            <button class="subMoreBtn hidden duration-200 group-hover:inline-block"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 pointer-events-none active:bg-black active:text-slate-50 rounded-full">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            </button>
+
+          </td>
+          <td class="record-cost px-6 text-end py-4">
+              1500
+          </td>
+          <td class="px-6 text-end py-4 print:hidden table-cell">
+              <a href="#" class="record-remove font-medium text-stone-950 dark:text-stone-50 hover:underline">Remove</a>
+          </td>
+      </tr>
+      </template>
+      
+    </main>
+
+
+
+
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
