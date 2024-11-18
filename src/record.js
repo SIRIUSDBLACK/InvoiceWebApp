@@ -2,26 +2,32 @@ import Swal from "sweetalert2";
 import { productRecordForm, recordGroup, recordNetTotal, recordRowTemplate, recordTotal, tax } from "./selectors"
 import { products } from "./state";
 import { v4 as uuidv4 } from 'uuid';
+import { productRender } from "./inventory";
 
 export const CreateRecordFormHandler = (event) => {
     event.preventDefault();
     const formData = new FormData(productRecordForm);
     const currentProduct = products.find(({id}) => id == formData.get("product_select"));
+    const currentProductQuantity = parseInt(formData.get("quantity"));
+    const currentProductStock = parseInt(currentProduct.stock);
+    if(currentProductStock<currentProductQuantity){
+      Swal.fire("m ya buu m shi buu m thi buu !!!")
+    }else{
+      currentProduct.stock = UpdateStock(currentProductStock,currentProductQuantity);
+      productRender(products);
+      const isThisProductAlreadyAdded = recordGroup.querySelector(`[product-id='${currentProduct.id}']`);
+      if(isThisProductAlreadyAdded){
+        updateQuantity(isThisProductAlreadyAdded.getAttribute("row-id"),currentProductQuantity);
+      }else{
+        recordGroup.append(createRecordRow(currentProduct,currentProductQuantity));
+      }
+        
+      productRecordForm.reset();
+    }
     // console.log(currentProduct);
     // console.log(formData.get("product_select"));
     // console.log(formData.get("quantity"));
-    const currentProductQuantity = parseFloat(formData.get("quantity"));
     // const currentRecordRow = recordGroup.querySelector("");
-    const isThisProductAlreadyAdded = recordGroup.querySelector(`[product-id='${currentProduct.id}']`);
-    if(isThisProductAlreadyAdded){
-      updateQuantity(isThisProductAlreadyAdded.getAttribute("row-id"),currentProductQuantity);
-    }else{
-      recordGroup.append(createRecordRow(currentProduct,currentProductQuantity));
-    }
-    
-    
-    
-    productRecordForm.reset();
     // createRecordRow(currentProduct,currentProductQuantity);
 };
 
@@ -162,10 +168,15 @@ export const recordGroupObserver = () => {
         tax.innerText = Totaltax;
         recordNetTotal.innerText = total + Totaltax;
     };
-      const observer = new MutationObserver(updateRecordTotal);
-      observer.observe(recordGroup, observerOptions);
+    const observer = new MutationObserver(updateRecordTotal);
+        observer.observe(recordGroup, observerOptions);
 };
 
+export const UpdateStock = (stock,subQuantity) => {
+      console.log("the items are subbed");
+      return Number(stock - subQuantity);
+      
+}
 
 
 

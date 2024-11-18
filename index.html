@@ -147,8 +147,11 @@
               <div class="col-span-3">
                 <input id="newItemNameInput" type="text"  class="bg-gray-50 w-full text-gray-900  rounded-sm border-2 border-stone-900 focus:ring-stone-500 focus:border-stone-500 block px-5 py-2.5 text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="New Item Name" required />
               </div>
-              <div class="col-span-2">
-                <input id="newItemPriceInput" type="text"  class="bg-gray-50 w-full text-gray-900  rounded-sm border-2 border-stone-900 focus:ring-stone-500 focus:border-stone-500 block px-5 py-2.5 text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Price" required />
+              <div class="col-span-1">
+                <input id="newItemPriceInput" type="number"  class="bg-gray-50 w-full text-gray-900  rounded-sm border-2 border-stone-900 focus:ring-stone-500 focus:border-stone-500 block px-5 py-2.5 text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Price" required />
+              </div>
+              <div class="col-span-1">
+                <input id="newItemStockInput" type="number"  class="bg-gray-50 w-full text-gray-900  rounded-sm border-2 border-stone-900 focus:ring-stone-500 focus:border-stone-500 block px-5 py-2.5 text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Stock" required />
               </div>
               <div class="col-span-1">
                 <button type="button" id="newItemAddBtn" class="text-center bg-stone-700 px-7 py-2.5 text-sm font-medium text-gray-50 focus:outline-none rounded-sm border-2 border-gray-900 hover:bg-gray-200 hover:text-stone-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add New</button>
@@ -175,9 +178,12 @@
       
       <!-- newItemTemplate -->
       <template id="newItemTemplate">
-        <button type="button" class="newItem w-full px-5 flex justify-between py-2.5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm  border-2 border-gray-900 hover:bg-gray-100 hover:text-stone-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+        <button type="button" class="newItem w-full px-5 flex justify-between py-2.5 text-sm font-medium focus:outline-none bg-white rounded-sm  border-2 border-gray-900 hover:bg-gray-100 hover:text-stone-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 text-gray-900 dark:bg-gray-800 dark:text-gray-900 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
           <h1 class="newItemName">Apple</h1>
-          <p class="newItemPrice" class="text-gray-400">500 mmk</p>
+          <div class="flex gap-7">
+          <p class="newItemPrice text-gray-600">500 mmk</p>
+          <p>[<span class="newItemStock">0</span>]</p>
+          </div>
         </button>
       </template>
       

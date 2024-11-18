@@ -3,6 +3,7 @@ export const productSideBar = document.querySelector("#productSideBar");
 export const sideBarCloseBtn = document.querySelector("#sideBarCloseBtn");
 export const newItemNameInput = document.querySelector("#newItemNameInput");
 export const newItemPriceInput = document.querySelector("#newItemPriceInput");
+export const newItemStockInput = document.querySelector("#newItemStockInput");
 export const newItemAddBtn = document.querySelector("#newItemAddBtn");
 export const itemsGroup = document.querySelector("#itemsGroup");
 export const newItemName = document.querySelector(".newItemName");
