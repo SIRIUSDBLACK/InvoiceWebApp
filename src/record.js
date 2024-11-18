@@ -77,7 +77,7 @@ export const createRecordRow = ({id,name,price},quantity) => {
 
 export const calculateTax = (amount,percentage = 5) => {
     return (amount/100)*percentage;
-}
+};
 
 export const calculateRecordTotal = () => {
     let total = 0;
@@ -133,8 +133,8 @@ export const updateQuantity = (Rowid,newQuantity) => {
   if(newQuantity>0 || recordQuantity.innerText>1){
     recordQuantity.innerText = parseInt(recordQuantity.innerText) + newQuantity;
     recordCost.innerText = recordProductPrice.innerText * recordQuantity.innerText;
-  }
-}
+  };
+};
 
 // export const addMoreBtnFn = (Rowid) => {
 //     const currentRecordRow = document.querySelector(`[row-id='${Rowid}']`);
@@ -176,7 +176,7 @@ export const UpdateStock = (stock,subQuantity) => {
       console.log("the items are subbed");
       return Number(stock - subQuantity);
       
-}
+};
 
 
 
